@@ -1,5 +1,7 @@
 package com.it.app.model;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -22,6 +24,7 @@ public class Book {
     @Column(unique = true, nullable = false)
     @NotNull(message = "{book.count.notNull}")
     @NotEmpty(message = "{book.count.notEmpty}")
+    @Range(min = 1, max = 50, message = "{book.count.range}")
     private Integer count;
 
     @Column(unique = true, nullable = false)

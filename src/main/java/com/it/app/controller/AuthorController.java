@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -31,7 +30,7 @@ public class AuthorController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<List<AuthorDto>> getAll() {
         final List<Author> authors = authorService.findAll();
         final List<AuthorDto> authorDtoList = authors.stream()
@@ -40,21 +39,21 @@ public class AuthorController {
         return new ResponseEntity<>(authorDtoList, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public ResponseEntity<AuthorDto> getOne(@PathVariable Long id) {
         final AuthorDto authorDto = mapper.map(authorService.findById(id), AuthorDto.class);
         return new ResponseEntity<>(authorDto, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<AuthorDto> save(@Valid @RequestBody AuthorDto authorDto) {
+    @PostMapping
+    public ResponseEntity<AuthorDto> save(@RequestBody AuthorDto authorDto) {
         authorDto.setId(null);
         final AuthorDto responseAuthorDto = mapper.map(authorService.save(mapper.map(authorDto, Author.class)), AuthorDto.class);
         return new ResponseEntity<>(responseAuthorDto, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<AuthorDto> update(@Valid @RequestBody AuthorDto authorDto, @PathVariable Long id) {
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<AuthorDto> update(@RequestBody AuthorDto authorDto, @PathVariable Long id) {
         if (!Objects.equals(id, authorDto.getId())) {
             throw new RuntimeException(localizedMessageSource.getMessage("controller.author.unexpectedId", new Object[]{}));
         }
@@ -62,7 +61,7 @@ public class AuthorController {
         return new ResponseEntity<>(responseAuthorDto, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable Long id) {
         authorService.deleteById(id);

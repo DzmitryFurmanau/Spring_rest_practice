@@ -1,5 +1,7 @@
 package com.it.app.model;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -22,6 +24,7 @@ public class Author {
     @Column(unique = true, nullable = false)
     @NotNull(message = "{author.age.notNull}")
     @NotEmpty(message = "{author.age.notEmpty}")
+    @Range(min = 1, max = 100, message = "{author.age.range}")
     private Integer age;
 
     @Column(unique = true, nullable = false)
