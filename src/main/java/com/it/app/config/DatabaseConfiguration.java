@@ -19,9 +19,7 @@ import java.util.Properties;
 
 @PropertySource("classpath:database.properties")
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = {
-        "com.it.app.repository"
-})
+@EnableJpaRepositories(basePackages = {"com.it.app.repository"})
 public class DatabaseConfiguration {
 
     @Value("${connection.driver_class}")
@@ -29,7 +27,6 @@ public class DatabaseConfiguration {
 
     @Value("${connection.url}")
     private String url;
-
 
     @Bean
     public DataSource dataSource() {
@@ -59,7 +56,7 @@ public class DatabaseConfiguration {
 
     private Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+        properties.setProperty("hibernate.hbm2ddl.auto", "validate");
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
         return properties;

@@ -19,7 +19,6 @@ public class BookRequestDto {
     @Column(unique = true, nullable = false)
     @NotNull(message = "{book.count.notNull}")
     @NotEmpty(message = "{book.count.notEmpty}")
-    @Range(min = 1, max = 50, message = "{book.count.range}")
     private Integer count;
 
     @Column(unique = true, nullable = false)

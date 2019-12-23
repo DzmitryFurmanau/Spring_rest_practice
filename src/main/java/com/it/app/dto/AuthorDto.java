@@ -19,7 +19,6 @@ public class AuthorDto {
     @Column(unique = true, nullable = false)
     @NotNull(message = "{author.age.notNull}")
     @NotEmpty(message = "{author.age.notEmpty}")
-    @Range(min = 1, max = 100, message = "{author.age.range}")
     private Integer age;
 
     @Column(unique = true, nullable = false)
